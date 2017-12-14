@@ -160,6 +160,12 @@ class RecipeVersionCollection extends VersionCollection
 
         // Switch branch to $target
         $repository = RepoFactory::repoFor($this->getPackagePath($package));
-        $repository->run('checkout', ['-qf', $target]);
+        /*
+         * Options here are:
+         *  -q: quiet. suppresses output
+         *  -f: force. throws away any local changes (read: hacks)
+         *  -t: track. make sure it's synced to the remote branches, see: https://github.com/silverstripe/api.silverstripe.org/issues/55#issuecomment-351655557
+         */
+        $repository->run('checkout', ['-qft', $target]);
     }
 }
